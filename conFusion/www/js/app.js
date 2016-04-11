@@ -51,6 +51,35 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers','conFusion.service
         }
       }
     })
+  
+  /*
+  .state('app.aboutus', {
+                url: '/aboutus',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/aboutus.html',
+                        controller: 'AboutController',
+                        resolve: {
+                            leaders: ['corporateFactory', function (corporateFactory) {
+                                return corporateFactory.query();
+                            }]
+                        }
+                    }
+                }
+            })
+  */
+  //very interesting for the resovle:[] part. also check the controller according to this format.
+  
+  .state('app.favorites', {
+      url:'/favorites',
+      views:{
+          'mainContent':{
+              templateUrl: 'templates/favorites.html',
+              controller: 'FavoritesController'
+          }
+      }
+  })
+  
   .state('app.contactus', {
       url: '/contactus',
       views: {
