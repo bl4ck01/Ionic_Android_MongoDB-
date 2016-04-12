@@ -159,8 +159,14 @@ angular.module('conFusion.controllers', [])
     };
         }])
 
-.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', function ($scope, $stateParams, menuFactory, favoriteFactory, baseURL, $ionicPopover) {
+.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover','$ionicModal', function ($scope, $stateParams, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal) {
     $scope.baseURL = baseURL;
+     $scope.mycomment = {
+        rating: 5,
+        comment: "",
+        author: "",
+        date: ""
+    };
     $scope.dish = {};
     $scope.showDish = false;
     $scope.message = "Loading ...";
@@ -193,6 +199,39 @@ angular.module('conFusion.controllers', [])
         $scope.popover.hide();
         };
      
+    $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+        scope: $scope
+    }).then(function(modal){
+        $scope.modal = modal;
+    });
+    
+    $scope.writeComment = function(){
+        $scope.modal.show();
+    };
+    $scope.closeComment = function(){
+        $scope.modal.hide();
+    };
+    $scope.doComment = function(){
+        scope.mycomment.date = new Date().toISOString();
+        console.log($scope.mycomment);
+
+        $scope.dish.comments.push($scope.mycomment);
+        menuFactory.getDishes().update({
+            id: $scope.dish.id
+        }, $scope.dish);
+
+        $scope.commentForm.$setPristine();
+
+        $scope.mycomment = {
+            rating: 5,
+            comment: "",
+            author: "",
+            date: ""
+        };
+        $scope.closeComment();
+    };
+    
+    
         }])
 
 .controller('DishCommentController', ['$scope', 'menuFactory', function ($scope, menuFactory) {
@@ -251,11 +290,6 @@ angular.module('conFusion.controllers', [])
     });
 }])
 
-.controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
-
-    $scope.leaders = corporateFactory.query();
-    console.log($scope.leaders);
-        }])
 
 
 .controller('AboutController', ['$scope', 'corporateFactory', 'baseURL', function ($scope, corporateFactory, baseURL) {
