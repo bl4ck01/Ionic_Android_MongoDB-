@@ -210,17 +210,18 @@ angular.module('conFusion.controllers', [])
     };
     $scope.closeComment = function(){
         $scope.modal.hide();
+         $scope.popover.hide();
     };
+    
     $scope.doComment = function(){
-        scope.mycomment.date = new Date().toISOString();
+        $scope.mycomment.date = new Date().toISOString();
         console.log($scope.mycomment);
+        $scope.mycomment.rating = parseInt($scope.mycomment.rating, 10);
 
         $scope.dish.comments.push($scope.mycomment);
         menuFactory.getDishes().update({
             id: $scope.dish.id
         }, $scope.dish);
-
-        $scope.commentForm.$setPristine();
 
         $scope.mycomment = {
             rating: 5,
@@ -228,7 +229,12 @@ angular.module('conFusion.controllers', [])
             author: "",
             date: ""
         };
+        
+        
+
+        
         $scope.closeComment();
+        $scope.popover.hide();
     };
     
     
