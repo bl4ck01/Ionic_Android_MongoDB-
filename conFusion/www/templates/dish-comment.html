@@ -9,7 +9,7 @@
         <form id="commentForm" name="commentForm" ng-submit="doComment()">
             <div class="list">
                 <label class="item item-input item-select item-balanced">
-                    <div class="input-label">Rating</div>
+                    <span class="input-label">Rating</span>
                     <select ng-model="mycomment.rating" required>
                         <option ng-repeat="n in [1,2,3,4,5]" value="{{n}}">{{n}}</option>
                     </select>
@@ -22,9 +22,9 @@
                     <span class="input-label">Your Comment:</span>
                     <textarea ng-model="mycomment.comment" require></textarea>
                 </li>
-                <li class="item">
+                <label class="item">
                     <button type="submit" class="button button-block button-calm">Comment Submit</button>
-                </li>
+                </label>
             </div>
         </form>
     </ion-content>
